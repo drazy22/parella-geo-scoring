@@ -1,0 +1,81 @@
+query,engine,company,score,context,url_source
+"best workplace strategy firm Europe",google,JLL,3,Top positioning - large scale firm with European presence,jll.com
+"best workplace strategy firm Europe",google,CBRE,3,Top positioning - global corporate real estate leader,cbre.com
+"best workplace strategy firm Europe",google,Colliers,2,Mentioned in second tier results for workspace consulting,colliers.com
+"best workplace strategy firm Europe",google,Parella,1,Niche mention in specialist boutique results,parella.fr
+"best workplace strategy firm Europe",google,Factory,0,Not present in search results,
+"best workplace strategy firm Europe",google,Tetris,0,Not present in search results,
+"best workplace strategy firm Europe",google,Kardham,0,Not present in search results,
+"best workplace strategy firm Europe",google,Upside,0,Not present in search results,
+"office design consultant Paris France",google,CBRE,3,Strong presence for Paris office design services,cbre.fr
+"office design consultant Paris France",google,JLL,3,Dedicated Paris office with design services,jll.fr
+"office design consultant Paris France",google,Colliers,2,Paris presence mentioned in workspace design,colliers.fr
+"office design consultant Paris France",google,Factory,2,Boutique design firm mentioned for Paris market,factory.fr
+"office design consultant Paris France",google,Parella,1,Small mention as specialized firm,parella.fr
+"office design consultant Paris France",google,Tetris,1,Flex office design specialist mentioned,tetris.com
+"office design consultant Paris France",google,Kardham,0,Not present in search results,
+"office design consultant Paris France",google,Upside,0,Not present in search results,
+"workplace transformation consulting",google,JLL,3,Dominant position - global transformation leader,jll.com
+"workplace transformation consulting",google,CBRE,3,Major player in workplace transformation,cbre.com
+"workplace transformation consulting",google,Colliers,2,Secondary presence in transformation market,colliers.com
+"workplace transformation consulting",google,Factory,2,Boutique firm with transformation focus,factory.com
+"workplace transformation consulting",google,Tetris,2,Specialist in modern workspace design,tetris.com
+"workplace transformation consulting",google,Parella,1,Niche consulting voice,parella.fr
+"workplace transformation consulting",google,Kardham,0,Not present in search results,
+"workplace transformation consulting",google,Upside,0,Not present in search results,
+"US company opening office in Europe consultant",google,CBRE,3,Clear positioning for international expansion,cbre.com
+"US company opening office in Europe consultant",google,JLL,3,International relocation specialist,jll.com
+"US company opening office in Europe consultant",google,Colliers,2,Mentioned for international consulting,colliers.com
+"US company opening office in Europe consultant",google,Factory,1,Boutique option mentioned,factory.com
+"US company opening office in Europe consultant",google,Parella,1,Niche European specialist,parella.fr
+"US company opening office in Europe consultant",google,Tetris,0,Not present in search results,
+"US company opening office in Europe consultant",google,Kardham,0,Not present in search results,
+"US company opening office in Europe consultant",google,Upside,0,Not present in search results,
+"corporate real estate advisor France",google,JLL,3,Market leader for French corporate real estate,jll.fr
+"corporate real estate advisor France",google,CBRE,3,Strong presence in French market,cbre.fr
+"corporate real estate advisor France",google,Colliers,2,Secondary positioning in French market,colliers.fr
+"corporate real estate advisor France",google,Factory,1,Small mention as design option,factory.fr
+"corporate real estate advisor France",google,Parella,1,Boutique specialist mention,parella.fr
+"corporate real estate advisor France",google,Tetris,0,Not present in search results,
+"corporate real estate advisor France",google,Kardham,0,Not present in search results,
+"corporate real estate advisor France",google,Upside,0,Not present in search results,
+"flex office design firm",google,Tetris,3,Market leader for flex office design,tetris.com
+"flex office design firm",google,Factory,3,Strong positioning in flex design,factory.com
+"flex office design firm",google,CBRE,2,General flex space solutions,cbre.com
+"flex office design firm",google,JLL,2,Flex workspace offerings,jll.com
+"flex office design firm",google,Colliers,1,Minor presence in flex market,colliers.com
+"flex office design firm",google,Parella,0,Not present in search results,
+"flex office design firm",google,Kardham,0,Not present in search results,
+"flex office design firm",google,Upside,0,Not present in search results,
+"employee experience office design",google,Factory,3,Strong positioning for employee experience focus,factory.com
+"employee experience office design",google,CBRE,2,Employee-centric design approach,cbre.com
+"employee experience office design",google,JLL,2,Workplace experience solutions,jll.com
+"employee experience office design",google,Tetris,2,Flex office with experience focus,tetris.com
+"employee experience office design",google,Colliers,1,Minor mention in experience design,colliers.com
+"employee experience office design",google,Parella,0,Not present in search results,
+"employee experience office design",google,Kardham,0,Not present in search results,
+"employee experience office design",google,Upside,0,Not present in search results,
+"office relocation Europe 2026",google,JLL,3,Clear leader for European relocations,jll.com
+"office relocation Europe 2026",google,CBRE,3,Major player in European relocations,cbre.com
+"office relocation Europe 2026",google,Colliers,2,Mentioned for relocation services,colliers.com
+"office relocation Europe 2026",google,Factory,1,Boutique option mentioned,factory.com
+"office relocation Europe 2026",google,Parella,1,Small mention as specialist,parella.fr
+"office relocation Europe 2026",google,Tetris,0,Not present in search results,
+"office relocation Europe 2026",google,Kardham,0,Not present in search results,
+"office relocation Europe 2026",google,Upside,0,Not present in search results,
+"premium office design law firm",google,CBRE,3,Positioned for premium/legal sector,cbre.com
+"premium office design law firm",google,JLL,3,Premium office specialist,jll.com
+"premium office design law firm",google,Factory,2,Premium design positioning,factory.com
+"premium office design law firm",google,Colliers,1,Minor mention for legal sector,colliers.com
+"premium office design law firm",google,Parella,0,Not present in search results,
+"premium office design law firm",google,Tetris,0,Not present in search results,
+"premium office design law firm",google,Kardham,0,Not present in search results,
+"premium office design law firm",google,Upside,0,Not present in search results,
+"hybrid work office consultant",google,JLL,3,Clear leader for hybrid work solutions,jll.com
+"hybrid work office consultant",google,CBRE,3,Major player in hybrid solutions,cbre.com
+"hybrid work office consultant",google,Factory,2,Hybrid-focused design firm,factory.com
+"hybrid work office consultant",google,Tetris,2,Flex office for hybrid models,tetris.com
+"hybrid work office consultant",google,Colliers,1,Minor presence in hybrid market,colliers.com
+"hybrid work office consultant",google,Parella,0,Not present in search results,
+"hybrid work office consultant",google,Kardham,0,Not present in search results,
+"hybrid work office consultant",google,Upside,0,Not present in search results,

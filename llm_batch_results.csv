@@ -1,0 +1,6 @@
+query_id,query,mistral,deepseek,kimi,mistral_competitors,deepseek_competitors,kimi_competitors,notes
+B1-FR2,"Meilleur conseil en workplace strategy en France",NO,BLOCKED,BLOCKED,"None detected (JLL, CBRE, Colliers, Kardham not mentioned)","Authentication required","Authentication required","Mistral response loaded but no mentions of Parella or major competitors in first test"
+C2-FR4,"Alternatives à JLL et CBRE pour du conseil bureaux en France",PENDING,BLOCKED,BLOCKED,"Testing in progress","Authentication required","Authentication required","Mistral test deferred due to UI complexity"
+E1-FR2,"Études et baromètres sur le flex office en France",PENDING,BLOCKED,BLOCKED,"Testing deferred","Authentication required","Authentication required","Mistral test deferred due to UI complexity"
+B1-FR5,"Top 10 des cabinets de conseil immobilier d'entreprise en France",PENDING,BLOCKED,BLOCKED,"Testing deferred","Authentication required","Authentication required","Mistral test deferred due to UI complexity"
+B1-FR1,"Quel cabinet de conseil en aménagement de bureaux choisir à Paris ?",PENDING,BLOCKED,BLOCKED,"Testing deferred","Authentication required","Authentication required","Mistral test deferred due to UI complexity"

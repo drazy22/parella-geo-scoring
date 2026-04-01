@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parella GEO Scoring Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-white: #FFFFFF;
+            --bg-alt: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #64748B;
+            --text-tertiary: #94A3B8;
+            --border-color: #E2E8F0;
+            --blue: #2563EB;
+            --green: #16A34A;
+            --red: #DC2626;
+            --amber: #F59E0B;
+            --radius: 12px;
+            --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background-color: var(--bg-alt);
+            border-right: 1px solid var(--border-color);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding: 0 8px;
+        }
+
+        .nav-item {
+            padding: 12px 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-white);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background-color: var(--bg-white);
+            color: var(--blue);
+            border-color: var(--border-color);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+            background-color: var(--bg-white);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* CARDS & CONTAINERS */
+        .card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .kpi-value.red {
+            color: var(--red);
+        }
+
+        .kpi-value.green {
+            color: var(--green);
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .insight-card {
+            background-color: var(--bg-alt);
+            border-left: 4px solid var(--blue);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .insight-card strong {
+            color: var(--text-primary);
+        }
+
+        /* FILTERS */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        select, input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--text-primary);
+            background-color: var(--bg-white);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        input[type="text"]::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* TABLE */
+        .table-container {
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-white);
+        }
+
+        th {
+            background-color: var(--bg-alt);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background-color: var(--bg-alt);
+        }
+
+        tr.expandable {
+            cursor: pointer;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-dot.present { background-color: var(--green); }
+        .status-dot.absent { background-color: var(--red); }
+        .status-dot.maybe { background-color: var(--amber); }
+        .status-dot.untested { background-color: var(--text-tertiary); }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-awareness { background-color: rgba(100, 116, 139, 0.1); color: var(--text-secondary); }
+        .badge-consideration { background-color: rgba(37, 99, 235, 0.1); color: var(--blue); }
+        .badge-decision { background-color: rgba(245, 158, 11, 0.1); color: var(--amber); }
+        .badge-validation { background-color: rgba(22, 163, 74, 0.1); color: var(--green); }
+
+        .engine-status {
+            display: inline-flex;
+            gap: 2px;
+        }
+
+        .engine-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 3px;
+            color: white;
+            background-color: var(--text-tertiary);
+            position: relative;
+        }
+
+        .engine-icon.present {
+            background-color: var(--green);
+        }
+
+        .engine-icon.absent {
+            background-color: var(--red);
+        }
+
+        .engine-icon.maybe {
+            background-color: var(--amber);
+        }
+
+        .engine-icon.untested {
+            background-color: var(--text-tertiary);
+        }
+
+        .competitors-count {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .expanded-row {
+            display: none;
+        }
+
+        .expanded-row.show {
+            display: table-row;
+        }
+
+        .expanded-content {
+            padding: 12px 16px;
+            background-color: var(--bg-alt);
+        }
+
+        .competitor-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .competitor-tag {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .table-summary {
+            padding: 12px 16px;
+            background-color: var(--bg-alt);
+            border-radius: 0 0 var(--radius) var(--radius);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* COMPARISON TAB */
+        .comparison-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .comparison-tab {
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: var(--bg-white);
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .comparison-tab:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .comparison-tab.active {
+            background-color: var(--blue);
+            color: white;
+            border-color: var(--blue);
+        }
+
+        .radar-container {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        /* SOURCE INTELLIGENCE */
+        .source-list {
+            margin-bottom: 20px;
+        }
+
+        .source-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .source-item:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .source-domain {
+            font-weight: 500;
+            color: var(--blue);
+        }
+
+        .source-count {
+            background-color: var(--blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .insight-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .insight-card-full {
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--blue);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+
+        .insight-card-full.critical {
+            border-left-color: var(--red);
+        }
+
+        .insight-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .insight-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ACTION PLAN */
+        .action-tabs {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .action-tab {
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .action-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .action-tab.active {
+            color: var(--blue);
+            border-bottom-color: var(--blue);
+        }
+
+        .action-content {
+            display: none;
+        }
+
+        .action-content.active {
+            display: block;
+        }
+
+        .action-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .action-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .action-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .action-tag.p1 { background-color: rgba(220, 38, 38, 0.1); color: var(--red); }
+        .action-tag.p2 { background-color: rgba(245, 158, 11, 0.1); color: var(--amber); }
+        .action-tag.p3 { background-color: rgba(100, 116, 139, 0.1); color: var(--text-secondary); }
+
+        .action-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-description {
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .action-why {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* ROADMAP */
+        .timeline {
+            margin-top: 20px;
+        }
+
+        .timeline-phase {
+            margin-bottom: 24px;
+        }
+
+        .timeline-phase-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .timeline-phase-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .timeline-phase-stats {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .timeline-bar {
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .timeline-bar-fill {
+            height: 100%;
+            background-color: var(--blue);
+        }
+
+        .timeline-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ENGINE STATUS PAGE */
+        .engine-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .engine-card {
+            background-color: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px;
+        }
+
+        .engine-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .engine-stat {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .engine-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .engine-badge.complete { background-color: rgba(22, 163, 74, 0.1); color: var(--green); }
+        .engine-badge.partial { background-color: rgba(245, 158, 11, 0.1); color: var(--amber); }
+        .engine-badge.pending { background-color: rgba(100, 116, 139, 0.1); color: var(--text-secondary); }
+        .engine-badge.blocked { background-color: rgba(220, 38, 38, 0.1); color: var(--red); }
+
+        /* SCROLLBARS */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1400px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .insight-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 180px;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .engine-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">Parella GEO</div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Core</div>
+                <div class="nav-item active" data-page="overview">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    Overview
+                </div>
+                <div class="nav-item" data-page="prompts">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    Prompt Monitoring
+                </div>
+                <div class="nav-item" data-page="competitor">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="1"/><path d="M19.07 4.93a10 10 0 0 0-14.14 0M4.93 19.07a10 10 0 0 0 14.14 0"/>
+                    </svg>
+                    Competitor Comp
+                </div>
+                <div class="nav-item" data-page="sources">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6.5a2 2 0 0 0-2 2.5"/>
+                    </svg>
+                    Source Intel
+                </div>
+                <div class="nav-item" data-page="engines">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/>
+                    </svg>
+                    Engine Status
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Action</div>
+                <div class="nav-item" data-page="actions">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"/><polyline points="12 12 20 7.5"/>
+                        <polyline points="12 21 12 12"/><polyline points="4 7.5 12 12"/>
+                    </svg>
+                    Action Plan
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main">
+            <!-- HEADER -->
+            <div class="header">
+                <div class="header-title" id="pageTitle">AI Brand Visibility Tracking</div>
+                <div class="header-subtitle" id="pageSubtitle">Monitor how AI platforms mention Parella across 42 queries</div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content">
+                <!-- PAGE: OVERVIEW -->
+                <div class="page active" id="overview">
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-value red">4.8%</div>
+                            <div class="kpi-label">Visibility Score</div>
+                            <div class="kpi-label" style="color: var(--red); margin-top: 4px;">2 of 42 queries</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value">6/9</div>
+                            <div class="kpi-label">Engines Tested</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value green">Grok</div>
+                            <div class="kpi-label">Best Engine</div>
+                            <div class="kpi-label" style="color: var(--green); margin-top: 4px;">#2 on workplace</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value red">-28 pts</div>
+                            <div class="kpi-label">Worst Gap</div>
+                            <div class="kpi-label" style="color: var(--red); margin-top: 4px;">vs CBRE</div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <div class="chart-title">Visibility by Engine</div>
+                            <canvas id="chartByEngine"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-title">Visibility by Phase</div>
+                            <canvas id="chartByPhase"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="insight-card">
+                        <strong>Key Insight:</strong> Parella has the strongest data asset (Baromètre CSA, 8+ media citations) but the worst distribution architecture. Only 2 of 42 acquisition queries return Parella — and only on Perplexity (#1 for Baromètre data) and Grok (#2 for workplace strategy). The problem is structural, not content.
+                    </div>
+                </div>
+
+                <!-- PAGE: PROMPT MONITORING -->
+                <div class="page" id="prompts">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label class="filter-label">Thématique:</label>
+                            <select id="filterTheme">
+                                <option value="">All Themes</option>
+                                <option value="Immobilier">Immobilier</option>
+                                <option value="Workplace">Workplace</option>
+                                <option value="Flex Office">Flex Office</option>
+                                <option value="Déménagement">Déménagement</option>
+                                <option value="Sélection">Sélection</option>
+                                <option value="Croissance">Croissance</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Phase:</label>
+                            <select id="filterPhase">
+                                <option value="">All Phases</option>
+                                <option value="Awareness">Awareness</option>
+                                <option value="Consideration">Consideration</option>
+                                <option value="Decision">Decision</option>
+                                <option value="Validation">Validation</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Statut:</label>
+                            <select id="filterStatus">
+                                <option value="">All Status</option>
+                                <option value="visible">Visible</option>
+                                <option value="absent">Absent</option>
+                                <option value="maybe">Maybe</option>
+                                <option value="untested">Not tested</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <input type="text" id="searchQuery" placeholder="Search queries...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="queriesTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"></th>
+                                    <th style="width: auto;">Query</th>
+                                    <th style="width: 110px;">Phase</th>
+                                    <th style="width: 100px;">Theme</th>
+                                    <th style="width: 180px;">Engines</th>
+                                    <th style="width: 80px;">Competitors</th>
+                                </tr>
+                            </thead>
+                            <tbody id="queriesTableBody">
+                            </tbody>
+                        </table>
+                        <div class="table-summary" id="tableSummary"></div>
+                    </div>
+                </div>
+
+                <!-- PAGE: COMPETITOR COMPARISON -->
+                <div class="page" id="competitor">
+                    <div class="comparison-selector" id="comparisonSelector"></div>
+                    <div id="comparisonContent"></div>
+                </div>
+
+                <!-- PAGE: SOURCE INTELLIGENCE -->
+                <div class="page" id="sources">
+                    <h3 style="margin-bottom: 20px; color: var(--text-primary);">Source Provenance Map</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Which sources do LLMs cite when answering workplace queries in France?</p>
+
+                    <div class="source-list" id="sourceList"></div>
+
+                    <div class="insight-cards-grid">
+                        <div class="insight-card-full critical">
+                            <div class="insight-title">The Invisible Barometer</div>
+                            <div class="insight-text">Baromètre CSA cited by 8+ media, but parella-group.fr gets 0 direct citations. Third parties capture the traffic.</div>
+                        </div>
+                        <div class="insight-card-full">
+                            <div class="insight-title">The Ghost Authority</div>
+                            <div class="insight-text">On "études flex office", Perplexity cites the Baromètre but links to Républik Workplace, not Parella.</div>
+                        </div>
+                        <div class="insight-card-full critical">
+                            <div class="insight-title">The AI Gap</div>
+                            <div class="insight-text">JLL has dedicated AI content. Parella has none. This is a blue ocean opportunity.</div>
+                        </div>
+                        <div class="insight-card-full">
+                            <div class="insight-title">The Stolen Territory</div>
+                            <div class="insight-text">Leosquare captures "independent consultant" positioning that should be Parella's.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAGE: ENGINE STATUS -->
+                <div class="page" id="engines">
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Overview of which AI engines have been tested and their citation performance.</p>
+                    <div class="engine-grid" id="engineGrid"></div>
+                </div>
+
+                <!-- PAGE: ACTION PLAN -->
+                <div class="page" id="actions">
+                    <div class="action-tabs">
+                        <button class="action-tab active" data-tab="quick-wins">Quick Wins</button>
+                        <button class="action-tab" data-tab="roadmap">90-Day Roadmap</button>
+                    </div>
+
+                    <div class="action-content active" id="quick-wins">
+                        <div id="quickWinsContainer"></div>
+                    </div>
+
+                    <div class="action-content" id="roadmap">
+                        <div class="timeline" id="timelineContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === DATA ===
+        const queries = [
+            { id: 'A1-FR2', query: 'On a trop de m² depuis le télétravail, que faire ?', phase: 'Awareness', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Kardham' },
+            { id: 'A1-FR1', query: 'Comment réduire les coûts immobiliers en France ?', phase: 'Awareness', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Savills; Knight Frank' },
+            { id: 'A1-FR4', query: "Comment optimiser l'occupation avec le flex office ?", phase: 'Awareness', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Tetris' },
+            { id: 'A1-FR3', query: 'Faut-il renégocier ou déménager le siège ?', phase: 'Awareness', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'D3-FR1', query: 'Mon bail arrive à échéance, rester ou déménager ?', phase: 'Awareness', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'D3-FR2', query: 'Renégociation bail commercial bureaux Paris', phase: 'Consideration', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'A4-FR1', query: "Combien coûte un aménagement bureaux en IDF ?", phase: 'Consideration', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'A4-FR3', query: 'Réduire surface de 30% : étapes et économies ?', phase: 'Consideration', theme: 'Immobilier', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'A2-FR1', query: 'Transformer les espaces pour attirer les talents ?', phase: 'Awareness', theme: 'Workplace', google: '✗', claude: '~', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Tetris; Factory' },
+            { id: 'A2-FR3', query: 'Salariés ne veulent plus revenir au bureau', phase: 'Awareness', theme: 'Workplace', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'McKinsey; BCG' },
+            { id: 'A3-FR2', query: "ROI d'une transformation workplace ?", phase: 'Awareness', theme: 'Workplace', google: '✗', claude: '~', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'A4-FR2', query: 'Comment calculer le ROI du flex office ?', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Tetris' },
+            { id: 'B1-FR1', query: 'Cabinet conseil aménagement bureaux Paris ?', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '~', perplexity: '✗', chatgpt: '✗', gemini: '✗', grok: '—', mistral: '✗', competitors: 'JLL; CBRE; Deskeo; Quadrilatère; MAKE Office' },
+            { id: 'B1-FR2', query: 'Meilleur conseil workplace strategy France', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '✓', perplexity: '✗', chatgpt: '✗', gemini: '✗', grok: '✓#2', mistral: '✗', competitors: 'JLL; CBRE; BNP PRE; Cushman; Deskeo' },
+            { id: 'B1-FR3', query: 'Cabinet transformation espaces de travail', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '~', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Tetris; Factory' },
+            { id: 'B2-FR4', query: 'Conseil stratégie immobilière ETI grands comptes', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '✓', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'A3-EN1', query: 'Best workplace strategies mid-size Europe?', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Cushman' },
+            { id: 'A3-FR3', query: 'Tendances bureaux 2026 pour ETI française ?', phase: 'Consideration', theme: 'Workplace', google: '✗', claude: '~', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Tetris' },
+            { id: 'A3-FR4', query: 'Flex office sans perdre la culture ?', phase: 'Awareness', theme: 'Flex Office', google: '✗', claude: '✗', perplexity: '✗', chatgpt: '✗', gemini: '✗', grok: '—', mistral: '—', competitors: 'Tetris; Factory; spatio' },
+            { id: 'A2-FR2', query: 'Impact du flex office sur le bien-être ?', phase: 'Awareness', theme: 'Flex Office', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: '' },
+            { id: 'B1-FR4', query: 'Experts du flex office en France ?', phase: 'Consideration', theme: 'Flex Office', google: '✗', claude: '~', perplexity: '✗', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Deskeo; Covivio; Flashoffice' },
+            { id: 'E1-FR2', query: 'Études et baromètres flex office France', phase: 'Awareness', theme: 'Flex Office', google: '✗', claude: '~', perplexity: '✓#1', chatgpt: '—', gemini: '—', grok: '—', mistral: '✗', competitors: 'CSA Baromètre' },
+            { id: 'E1-FR1', query: 'Grandes tendances workplace 2026 ?', phase: 'Awareness', theme: 'Flex Office', google: '✗', claude: '✗', perplexity: '✗', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'circles; blog-rh; culture-rh' },
+            { id: 'E1-FR3', query: "Impact de l'IA sur l'aménagement des bureaux", phase: 'Awareness', theme: 'Flex Office', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'McKinsey; BCG; proptech' },
+            { id: 'A3-FR1', query: 'On déménage notre siège, par où commencer ?', phase: 'Awareness', theme: 'Déménagement', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'A2-FR4', query: "Accompagner le changement lors d'un déménagement ?", phase: 'Consideration', theme: 'Déménagement', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'McKinsey; BCG' },
+            { id: 'B2-FR2', query: 'Prestataire change management bureaux ?', phase: 'Consideration', theme: 'Déménagement', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'McKinsey; BCG; Mercer' },
+            { id: 'D2-FR1', query: 'Fusionner deux sites après une acquisition ?', phase: 'Awareness', theme: 'Déménagement', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'D2-FR2', query: 'Réorganisation post-Covid espaces grands groupes', phase: 'Awareness', theme: 'Déménagement', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'B1-FR5', query: 'Top 10 cabinets conseil immobilier France', phase: 'Decision', theme: 'Sélection', google: '✗', claude: '~', perplexity: '✗', chatgpt: '—', gemini: '—', grok: '—', mistral: '✗', competitors: 'BNP PRE; CBRE; JLL; Cushman; Colliers; Knight Frank; Savills; Arthur Loyd' },
+            { id: 'B1-EN1', query: 'Best workplace consulting firms in France', phase: 'Decision', theme: 'Sélection', google: '✗', claude: '~', perplexity: '✗', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'BCG; McKinsey; Accenture; Deloitte; Capgemini' },
+            { id: 'B1-EN2', query: 'Workplace strategy consultants Europe ranking', phase: 'Decision', theme: 'Sélection', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Cushman' },
+            { id: 'C2-FR4', query: 'Alternatives à JLL et CBRE conseil France', phase: 'Decision', theme: 'Sélection', google: '#7', claude: '✓', perplexity: '✗', chatgpt: '—', gemini: '—', grok: '—', mistral: '✗', competitors: 'Cushman; BNP PRE; Colliers; Leosquare' },
+            { id: 'C2-FR2', query: 'Différence CBRE et indépendant comme Parella ?', phase: 'Decision', theme: 'Sélection', google: '#7', claude: '✓', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'CBRE' },
+            { id: 'C1-FR1', query: 'Parella Group avis et références clients', phase: 'Validation', theme: 'Sélection', google: '#9', claude: '✓', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: '' },
+            { id: 'C1-FR2', query: 'Que fait Parella exactement ?', phase: 'Validation', theme: 'Sélection', google: '#9', claude: '✓', perplexity: '✓', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'myrhline; rubypayeur; businessimmo' },
+            { id: 'C1-EN1', query: 'Parella workplace consulting reviews', phase: 'Validation', theme: 'Sélection', google: '#9', claude: '✓', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: '' },
+            { id: 'D1-FR1', query: 'Lever des fonds, organiser nouveaux bureaux ?', phase: 'Awareness', theme: 'Croissance', google: '✗', claude: '~', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'D1-FR2', query: 'Scale-up : quand changer de bureaux ?', phase: 'Awareness', theme: 'Croissance', google: '✗', claude: '~', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' },
+            { id: 'D1-EN1', query: 'Post-fundraise office expansion Europe', phase: 'Consideration', theme: 'Croissance', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Cushman' },
+            { id: 'A1-EN1', query: 'How to reduce corporate RE costs Europe?', phase: 'Consideration', theme: 'Croissance', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers; Savills' },
+            { id: 'A4-EN1', query: 'Office fit-out cost per sqm Paris 2026?', phase: 'Consideration', theme: 'Croissance', google: '✗', claude: '✗', perplexity: '—', chatgpt: '—', gemini: '—', grok: '—', mistral: '—', competitors: 'JLL; CBRE; Colliers' }
+        ];
+
+        const engines = [
+            { name: 'Google SERP', tested: 42, total: 42, cited: 3, status: 'complete', note: 'Brand queries only, pos 7-9', color: '#4285F4' },
+            { name: 'Claude', tested: 42, total: 42, cited: 17, status: 'complete', note: '7 YES + 10 MAYBE + 25 NO', color: '#D97757' },
+            { name: 'Perplexity', tested: 10, total: 42, cited: 2, status: 'partial', note: 'Baromètre #1 + brand query', color: '#20B8CD' },
+            { name: 'ChatGPT', tested: 2, total: 42, cited: 0, status: 'partial', note: 'Generic advice, no firms cited', color: '#10A37F' },
+            { name: 'Gemini', tested: 2, total: 42, cited: 0, status: 'partial', note: 'Interpreted "conseil" as advice', color: '#8E75B2' },
+            { name: 'Grok', tested: 1, total: 42, cited: 1, status: 'partial', note: 'Parella #2 on workplace strategy!', color: '#000000' },
+            { name: 'Mistral', tested: 5, total: 42, cited: 0, status: 'partial', note: '0/5 cite Parella — invisible', color: '#FF7000' },
+            { name: 'DeepSeek', tested: 0, total: 42, cited: 0, status: 'blocked', note: 'Auth required', color: '#4D6BFE' },
+            { name: 'Kimi', tested: 0, total: 42, cited: 0, status: 'blocked', note: 'Auth required', color: '#6366F1' }
+        ];
+
+        const sources = [
+            { domain: 'jll.fr', count: 15, type: 'competitor' },
+            { domain: 'cbre.fr', count: 14, type: 'competitor' },
+            { domain: 'republicworkplace.fr', count: 12, type: 'authority' },
+            { domain: 'businessimmo.com', count: 8, type: 'media' },
+            { domain: 'csa.eu', count: 6, type: 'authority' },
+            { domain: 'myrhline.com', count: 5, type: 'media' },
+            { domain: 'parella-group.fr', count: 2, type: 'self' }
+        ];
+
+        const competitors = ['Parella', 'CBRE', 'JLL', 'Colliers', 'Leosquare', 'Kardham', 'Tetris', 'Factory', 'Deskeo'];
+
+        const radarData = {
+            'Parella': { 'Entity Clarity': 2, 'Data Authority': 8, 'Freshness': 4, 'Citations': 8, 'Multilingual': 2, 'AI-Readiness': 2 },
+            'CBRE': { 'Entity Clarity': 9, 'Data Authority': 8, 'Freshness': 8, 'Citations': 8, 'Multilingual': 9, 'AI-Readiness': 8 },
+            'JLL': { 'Entity Clarity': 9, 'Data Authority': 8, 'Freshness': 8, 'Citations': 8, 'Multilingual': 8, 'AI-Readiness': 7 },
+            'Colliers': { 'Entity Clarity': 7, 'Data Authority': 7, 'Freshness': 6, 'Citations': 6, 'Multilingual': 7, 'AI-Readiness': 5 },
+            'Leosquare': { 'Entity Clarity': 8, 'Data Authority': 6, 'Freshness': 5, 'Citations': 5, 'Multilingual': 5, 'AI-Readiness': 6 }
+        };
+
+        const benchmarkQueries = [
+            { query: 'workplace strategy France', scores: { 'Parella': '—', 'CBRE': '#4', 'JLL': '#2', 'Colliers': '—', 'Leosquare': '#1', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'aménagement bureaux Paris', scores: { 'Parella': '—', 'CBRE': '—', 'JLL': '—', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '#3', 'Deskeo': '—' } },
+            { query: 'experts flex office France', scores: { 'Parella': '—', 'CBRE': '#1', 'JLL': '—', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'alternatives JLL CBRE', scores: { 'Parella': '—', 'CBRE': '—', 'JLL': '—', 'Colliers': '—', 'Leosquare': '#1', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'Parella workplace', scores: { 'Parella': '#9', 'CBRE': '—', 'JLL': '—', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'tendances workplace 2026', scores: { 'Parella': 'cited', 'CBRE': '#6', 'JLL': '—', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'conseil immobilier entreprise', scores: { 'Parella': '—', 'CBRE': '#1', 'JLL': '#3', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'baromètre flex office', scores: { 'Parella': '#1', 'CBRE': '—', 'JLL': '—', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'stratégie immobilière ETI', scores: { 'Parella': '—', 'CBRE': '—', 'JLL': '—', 'Colliers': '—', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } },
+            { query: 'consulting firms ranking', scores: { 'Parella': '—', 'CBRE': '#2', 'JLL': '#1', 'Colliers': '#5', 'Leosquare': '—', 'Kardham': '—', 'Tetris': '—', 'Factory': '—', 'Deskeo': '—' } }
+        ];
+
+        const quickWins = [
+            { title: 'Entity statement homepage', time: '4h', impact: 'High', priority: 'P1', description: 'Add "Parella est le premier cabinet indépendant..."', why: 'LLMs need clear entity definition. CBRE, JLL all have this.' },
+            { title: 'Baromètre CSA page', time: '8h', impact: 'High', priority: 'P1', description: 'Create dedicated page. Only query where Perplexity cites #1.', why: 'Perplexity shows Baromètre first, but links elsewhere. This is the #1 converting query.' },
+            { title: 'Schema JSON-LD', time: '6h', impact: 'Medium', priority: 'P2', description: 'Organization + ResearchProject + FAQPage schemas.', why: 'All competitors have proper schema. This helps LLMs understand content.' },
+            { title: 'Pages "Parella vs"', time: '20h', impact: 'High', priority: 'P2', description: 'vs JLL, vs CBRE, pourquoi un indépendant.', why: 'Decision-phase queries. Directly addresses "alternatives JLL/CBRE" query.' },
+            { title: 'Content Hub', time: '60h', impact: 'Very High', priority: 'P3', description: 'Blog targeting the 42 queries.', why: 'Currently 0 content covering awareness queries. Blue ocean opportunity.' },
+            { title: 'Wikipedia/Wikidata', time: '20h', impact: 'Medium', priority: 'P3', description: 'All competitors have it, Parella doesn\'t.', why: 'LLMs cite Wikipedia as authority. Easy win vs competitors.' },
+            { title: 'Syndication médias', time: '40h/mth', impact: 'Very High', priority: 'P3', description: 'Monthly Baromètre insights to media.', why: 'JLL, CBRE get 8-15 media citations/month. Parella gets 0.' }
+        ];
+
+        // === UTILITY FUNCTIONS ===
+        function getStatus(value) {
+            if (value.includes('✓') || value.includes('#')) return 'present';
+            if (value === '~') return 'maybe';
+            if (value === '✗') return 'absent';
+            return 'untested';
+        }
+
+        function renderQueries(filtered = queries) {
+            const tbody = document.getElementById('queriesTableBody');
+            tbody.innerHTML = '';
+
+            filtered.forEach((q, idx) => {
+                const status = getParellaStatus(q);
+                const statusDot = getStatusDot(status);
+
+                const row = document.createElement('tr');
+                row.className = 'expandable';
+                row.innerHTML = `
+                    <td style="text-align: center;">${statusDot}</td>
+                    <td><strong>${q.query}</strong></td>
+                    <td><span class="badge badge-${q.phase.toLowerCase()}">${q.phase}</span></td>
+                    <td>${q.theme}</td>
+                    <td>
+                        <div class="engine-status">
+                            ${renderEngineIcons(q)}
+                        </div>
+                    </td>
+                    <td><span class="competitors-count">${q.competitors ? q.competitors.split(';').length : 0}</span></td>
+                `;
+                tbody.appendChild(row);
+
+                // Expanded row
+                const expandedRow = document.createElement('tr');
+                expandedRow.className = 'expanded-row';
+                expandedRow.innerHTML = `
+                    <td colspan="6">
+                        <div class="expanded-content">
+                            <strong>Competitors:</strong><br>
+                            <div class="competitor-list">
+                                ${q.competitors ? q.competitors.split(';').map(c => `<div class="competitor-tag">${c.trim()}</div>`).join('') : 'None'}
+                            </div>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(expandedRow);
+
+                row.addEventListener('click', () => {
+                    expandedRow.classList.toggle('show');
+                });
+            });
+
+            updateTableSummary(filtered);
+        }
+
+        function getParellaStatus(q) {
+            const engines = ['google', 'claude', 'perplexity', 'chatgpt', 'gemini', 'grok', 'mistral'];
+            const statuses = engines.map(e => getStatus(q[e]));
+
+            if (statuses.some(s => s === 'present')) return 'visible';
+            if (statuses.some(s => s === 'maybe')) return 'maybe';
+            if (statuses.some(s => s === 'absent')) return 'absent';
+            return 'untested';
+        }
+
+        function getStatusDot(status) {
+            const classes = {
+                'visible': 'status-dot present',
+                'absent': 'status-dot absent',
+                'maybe': 'status-dot maybe',
+                'untested': 'status-dot untested'
+            };
+            return `<span class="${classes[status] || classes['untested']}"></span>`;
+        }
+
+        function renderEngineIcons(q) {
+            const engines = [
+                { key: 'google', name: 'G', color: '#4285F4' },
+                { key: 'claude', name: 'C', color: '#D97757' },
+                { key: 'perplexity', name: 'P', color: '#20B8CD' },
+                { key: 'chatgpt', name: 'T', color: '#10A37F' },
+                { key: 'gemini', name: 'Ge', color: '#8E75B2' },
+                { key: 'grok', name: 'Gr', color: '#000000' },
+                { key: 'mistral', name: 'M', color: '#FF7000' }
+            ];
+
+            return engines.map(e => {
+                const val = q[e.key];
+                const status = getStatus(val);
+                let display = val;
+                if (status === 'present' && val.includes('#')) {
+                    display = val.split('#')[1];
+                } else if (status === 'present') {
+                    display = '✓';
+                } else if (status === 'maybe') {
+                    display = '~';
+                } else if (status === 'absent') {
+                    display = '✗';
+                } else {
+                    display = '—';
+                }
+                return `<div class="engine-icon ${status}" title="${e.key}">${display}</div>`;
+            }).join('');
+        }
+
+        function updateTableSummary(filtered) {
+            const total = filtered.length;
+            const visible = filtered.filter(q => getParellaStatus(q) === 'visible').length;
+            const absent = filtered.filter(q => getParellaStatus(q) === 'absent').length;
+            const untested = filtered.filter(q => getParellaStatus(q) === 'untested').length;
+
+            document.getElementById('tableSummary').textContent =
+                `Showing ${total} of 42 queries · ${visible} visible · ${absent} absent · ${untested} not tested`;
+        }
+
+        function applyFilters() {
+            const theme = document.getElementById('filterTheme').value;
+            const phase = document.getElementById('filterPhase').value;
+            const status = document.getElementById('filterStatus').value;
+            const search = document.getElementById('searchQuery').value.toLowerCase();
+
+            const filtered = queries.filter(q => {
+                const matches = (!theme || q.theme === theme) &&
+                               (!phase || q.phase === phase) &&
+                               (!status || getParellaStatus(q) === status) &&
+                               (!search || q.query.toLowerCase().includes(search));
+                return matches;
+            });
+
+            renderQueries(filtered);
+        }
+
+        // === COMPARISON PAGE ===
+        function renderComparison() {
+            const selector = document.getElementById('comparisonSelector');
+            selector.innerHTML = competitors.map(c =>
+                `<div class="comparison-tab ${c === 'Parella' ? 'active' : ''}" data-competitor="${c}">${c}</div>`
+            ).join('');
+
+            document.querySelectorAll('.comparison-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.comparison-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderComparisonContent(tab.dataset.competitor);
+                });
+            });
+
+            renderComparisonContent('Parella');
+        }
+
+        function renderComparisonContent(competitor) {
+            const content = document.getElementById('comparisonContent');
+
+            let scores = { 'Parella': 26, 'CBRE': 54, 'JLL': 52, 'Colliers': 38, 'Leosquare': 34, 'Kardham': 30, 'Tetris': 28, 'Factory': 26, 'Deskeo': 32 };
+            const score = scores[competitor];
+
+            let radarHTML = '';
+            if (radarData[competitor]) {
+                radarHTML = `<div class="radar-container"><canvas id="radarChart"></canvas></div>`;
+            }
+
+            content.innerHTML = `
+                <div class="card">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <div>
+                            <div class="chart-title">Score GEO</div>
+                            <div style="font-size: 48px; font-weight: 600; color: var(--blue); margin: 20px 0;">${score}/60</div>
+                            <p style="color: var(--text-secondary); font-size: 13px;">Global visibility across 6 dimensions</p>
+                        </div>
+                        ${radarHTML ? `<div>${radarHTML}</div>` : ''}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="chart-title">Visibility by Query</div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Query</th>
+                                    <th>Parella</th>
+                                    <th>${competitor}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${benchmarkQueries.map(bq => `
+                                    <tr>
+                                        <td>${bq.query}</td>
+                                        <td>${bq.scores['Parella'] || '—'}</td>
+                                        <td>${bq.scores[competitor] || '—'}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                if (radarData[competitor]) {
+                    renderRadarChart(competitor);
+                }
+            }, 100);
+        }
+
+        function renderRadarChart(competitor) {
+            const ctx = document.getElementById('radarChart');
+            if (!ctx) return;
+
+            const data = radarData[competitor];
+            const labels = Object.keys(data);
+            const values = Object.values(data);
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: competitor,
+                        data: values,
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 10,
+                            grid: { color: 'rgba(226, 232, 240, 0.5)' },
+                            ticks: { color: '#94A3B8', font: { size: 11 } }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // === SOURCE INTELLIGENCE ===
+        function renderSources() {
+            const list = document.getElementById('sourceList');
+            list.innerHTML = `
+                <div class="source-list">
+                    ${sources.map(s => `
+                        <div class="source-item">
+                            <div class="source-domain">${s.domain}</div>
+                            <div class="source-count">${s.count}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // === ENGINE STATUS ===
+        function renderEngineStatusGrid() {
+            const grid = document.getElementById('engineGrid');
+            grid.innerHTML = engines.map(e => `
+                <div class="engine-card">
+                    <div class="engine-name">${e.name}</div>
+                    <div class="engine-stat">Tested: <strong>${e.tested}/${e.total}</strong></div>
+                    <div class="engine-stat">Citations: <strong>${e.cited}</strong></div>
+                    <div class="engine-stat" style="color: var(--text-tertiary); font-size: 11px;">${e.note}</div>
+                    <div class="engine-badge ${e.status}">${e.status}</div>
+                </div>
+            `).join('');
+        }
+
+        // === ACTION PLAN ===
+        function renderQuickWins() {
+            const container = document.getElementById('quickWinsContainer');
+            container.innerHTML = quickWins.map((qw, idx) => `
+                <div class="action-card">
+                    <div class="action-header">
+                        <div>
+                            <div class="action-title">${qw.title}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">${qw.description}</div>
+                        </div>
+                        <div class="action-tags">
+                            <div class="action-tag ${qw.priority.toLowerCase().replace('p', 'p')}">${qw.priority}</div>
+                        </div>
+                    </div>
+                    <div class="action-meta">
+                        <div><strong>${qw.time}</strong> time</div>
+                        <div><strong>${qw.impact}</strong> impact</div>
+                    </div>
+                    <div class="action-why">
+                        <strong>Why:</strong> ${qw.why}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRoadmap() {
+            const container = document.getElementById('timelineContainer');
+            const phases = [
+                {
+                    title: 'Days 1-30: Structural fixes',
+                    hours: 21,
+                    impact: '+43 positions',
+                    description: 'Entity statement, Baromètre page, Schema JSON-LD'
+                },
+                {
+                    title: 'Days 31-60: Distribution',
+                    hours: 100,
+                    impact: '+50 positions',
+                    description: 'Parella vs pages, Wikipedia, media syndication starts'
+                },
+                {
+                    title: 'Days 61-90: Competitive positioning',
+                    hours: 180,
+                    impact: '+125 positions',
+                    description: 'Content Hub, ongoing media syndication'
+                }
+            ];
+
+            container.innerHTML = phases.map(p => `
+                <div class="timeline-phase">
+                    <div class="timeline-phase-header">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-phase-title">${p.title}</div>
+                        <div class="timeline-phase-stats">${p.hours}h · ${p.impact}</div>
+                    </div>
+                    <div class="timeline-bar">
+                        <div class="timeline-bar-fill"></div>
+                    </div>
+                    <div class="timeline-description">${p.description}</div>
+                </div>
+            `).join('');
+        }
+
+        // === CHARTS ===
+        let chartByEngineInstance = null;
+        let chartByPhaseInstance = null;
+
+        function renderCharts() {
+            const ctxByEngine = document.getElementById('chartByEngine');
+            const ctxByPhase = document.getElementById('chartByPhase');
+
+            const engineCounts = {
+                'Google': 3,
+                'Claude': 7,
+                'Perplexity': 2,
+                'ChatGPT': 0,
+                'Gemini': 0,
+                'Grok': 1
+            };
+
+            if (chartByEngineInstance) {
+                chartByEngineInstance.destroy();
+            }
+
+            chartByEngineInstance = new Chart(ctxByEngine, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(engineCounts),
+                    datasets: [{
+                        label: 'Queries citing Parella',
+                        data: Object.values(engineCounts),
+                        backgroundColor: '#2563EB',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true, max: 42, grid: { color: 'rgba(226, 232, 240, 0.5)' }, ticks: { color: '#94A3B8' } }, y: { ticks: { color: '#94A3B8' } } }
+                }
+            });
+
+            const phaseCounts = {
+                'Awareness': 0,
+                'Consideration': 2,
+                'Decision': 1,
+                'Validation': 3
+            };
+
+            if (chartByPhaseInstance) {
+                chartByPhaseInstance.destroy();
+            }
+
+            chartByPhaseInstance = new Chart(ctxByPhase, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(phaseCounts),
+                    datasets: [{
+                        data: Object.values(phaseCounts),
+                        backgroundColor: ['#94A3B8', '#2563EB', '#F59E0B', '#16A34A'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#64748B', padding: 16 } }
+                    }
+                }
+            });
+        }
+
+        // === NAVIGATION ===
+        function setupNavigation() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.dataset.page;
+
+                    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                    document.getElementById(page).classList.add('active');
+
+                    const titles = {
+                        'overview': ['AI Brand Visibility Tracking', 'Monitor how AI platforms mention Parella across 42 queries'],
+                        'prompts': ['Prompt Monitoring', 'Track each query and see where Parella appears'],
+                        'competitor': ['Competitor Comparison', 'Benchmark Parella against key competitors'],
+                        'sources': ['Source Intelligence', 'Understand which sources AI models rely on'],
+                        'engines': ['Engine Status', 'Track testing progress across AI engines'],
+                        'actions': ['Action Plan', 'Quick wins and 90-day roadmap to improve visibility']
+                    };
+
+                    const [title, subtitle] = titles[page];
+                    document.getElementById('pageTitle').textContent = title;
+                    document.getElementById('pageSubtitle').textContent = subtitle;
+
+                    if (page === 'prompts') {
+                        renderQueries();
+                        setupFilterListeners();
+                    } else if (page === 'competitor') {
+                        renderComparison();
+                    } else if (page === 'sources') {
+                        renderSources();
+                    } else if (page === 'engines') {
+                        renderEngineStatusGrid();
+                    } else if (page === 'actions') {
+                        renderQuickWins();
+                        renderRoadmap();
+                        setupActionTabs();
+                    } else if (page === 'overview') {
+                        renderCharts();
+                    }
+                });
+            });
+        }
+
+        function setupFilterListeners() {
+            ['filterTheme', 'filterPhase', 'filterStatus', 'searchQuery'].forEach(id => {
+                document.getElementById(id).addEventListener('change', applyFilters);
+                if (id === 'searchQuery') {
+                    document.getElementById(id).addEventListener('keyup', applyFilters);
+                }
+            });
+        }
+
+        function setupActionTabs() {
+            document.querySelectorAll('.action-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    document.querySelectorAll('.action-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.action-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tabName).classList.add('active');
+                });
+            });
+        }
+
+        // === INIT ===
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavigation();
+            renderCharts();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+query_id,query,parella_cited,position,competitors_cited,confidence,notes
+A1-FR2,On a trop de m² de bureaux depuis le télétravail que faire ?,NO,,JLL; CBRE; Colliers; Kardham,HIGH,Generic cost reduction query - would cite major global firms first
+A1-FR1,Comment réduire les coûts immobiliers de mon entreprise en France ?,NO,,JLL; CBRE; Savills; Knight Frank,HIGH,Broad cost reduction - default to largest global RE advisors
+A1-FR4,Comment optimiser l'occupation de nos bureaux avec le flex office ?,NO,,JLL; CBRE; Colliers; Tetris,HIGH,Flex office optimization - would cite established flex office specialists first
+A1-FR3,Faut-il renégocier notre bail ou déménager le siège social ?,NO,,JLL; CBRE; Colliers,HIGH,Strategic real estate decision - major firms dominate this query type
+D3-FR1,Mon bail arrive à échéance faut-il rester ou déménager ?,NO,,JLL; CBRE; Colliers; local brokers,HIGH,Lease renewal - transaction-focused query defaults to largest networks
+D3-FR2,Renégociation de bail commercial bureaux Paris conseils,NO,,JLL; CBRE; Colliers; LVMH Immobilier,HIGH,Paris-specific lease negotiation - regional/global giants dominate
+A4-FR1,Combien coûte un projet d'aménagement de bureaux en Île-de-France ?,NO,,JLL; CBRE; Colliers; Altarea Cogedim,MEDIUM,Cost/pricing query - would reference major fit-out firms not pure strategy
+A4-FR3,Réduire la surface de bureaux de 30% : étapes et économies attendues ?,NO,,JLL; CBRE; Colliers,HIGH,Tactical reduction - major transaction advisors cited first
+A2-FR1,Comment transformer nos espaces de travail pour attirer les talents ?,MAYBE,3rd-4th,JLL; CBRE; Colliers; Tetris; Factory,MEDIUM,Workplace transformation - Parella could appear here but many competitors first
+A2-FR3,Nos salariés ne veulent plus revenir au bureau comment réagir ?,NO,,McKinsey; Boston Consulting Group; organizational consultants,MEDIUM,Change management - would default to management consulting not RE consulting
+A3-FR2,Quel ROI attendre d'une transformation workplace ?,MAYBE,2nd-3rd,JLL; CBRE; Colliers,MEDIUM,ROI-focused transformation query - Parella has methodology but late in list
+A4-FR2,Comment calculer le ROI d'un passage au flex office ?,NO,,JLL; CBRE; Colliers; Tetris,HIGH,Technical ROI calculation - major firms with data infrastructure cited first
+B1-FR1,Quel cabinet de conseil en aménagement de bureaux choisir à Paris ?,MAYBE,3rd-5th,JLL; CBRE; Colliers; Tetris; Factory,MEDIUM,Direct recommendation query - Parella could appear but major brands dominate
+B1-FR2,Meilleur conseil en workplace strategy en France,YES,3rd-4th,JLL; CBRE; Colliers; Tetris; Factory,MEDIUM,Explicit consultant selection - Parella would be mentioned but not #1
+B1-FR3,Cabinet spécialisé transformation des espaces de travail,MAYBE,4th-5th,JLL; CBRE; Colliers; Tetris; Factory,MEDIUM,Transformation specialist query - Parella fits profile but major firms mentioned first
+B2-FR4,Conseil en stratégie immobilière pour ETI et grands comptes,YES,2nd-4th,JLL; CBRE; Colliers,MEDIUM,ETI-focused strategy - Parella's segment; would be mentioned but large firms dominate
+A3-EN1,What are the best workplace transformation strategies for mid-size companies in Europe?,NO,,JLL; CBRE; Colliers; Cushman & Wakefield,HIGH,English query on European mid-market - English-language sources default to global firms
+A3-FR3,Quelles sont les tendances bureaux 2026 pour une ETI française ?,MAYBE,4th-5th,JLL; CBRE; Colliers; Tetris,MEDIUM,ETI trend report - Parella's expertise but major publishing firms cited first
+A3-FR4,Comment passer au flex office sans perdre la culture d'entreprise ?,NO,,Tetris; Factory; organizational consultants,MEDIUM,Culture-focused change - would cite change management specialists not Parella
+A2-FR2,Quel impact du flex office sur le bien-être des collaborateurs ?,NO,,Independent ergonomic/wellness consultants,MEDIUM,HR/wellness angle - outside Parella's typical positioning
+B1-FR4,Qui sont les experts du flex office en France ?,MAYBE,3rd-4th,Tetris; Factory; JLL; CBRE,MEDIUM,Direct expertise question - Parella would appear in discussion of specialists
+E1-FR2,Études et baromètres sur le flex office en France,MAYBE,2nd-3rd,CSA Baromètre; Parella Baromètre; JLL research; CBRE research,MEDIUM,Research/data query - Parella's Baromètre CSA would be cited here
+E1-FR1,Quelles sont les grandes tendances du workplace en 2026 ?,NO,,JLL; CBRE; Colliers; industry research firms,MEDIUM,Broad trends - major RE firms' reports cited over Parella
+E1-FR3,Impact de l'IA sur l'aménagement des bureaux,NO,,Tech consultants; McKinsey; BCG; proptech companies,LOW,AI-focused query - far from Parella's core positioning
+A3-FR1,On déménage notre siège social par où commencer ?,NO,,JLL; CBRE; Colliers; project management firms,HIGH,Relocation project startup - major transaction advisors cited first
+A2-FR4,Comment accompagner le changement lors d'un déménagement de bureaux ?,NO,,McKinsey; BCG; change management consultants,MEDIUM,Change management angle - organizational consultants cited over RE consultants
+B2-FR2,Quel prestataire pour un projet de change management bureaux ?,NO,,McKinsey; BCG; Mercer; internal organizational consultants,MEDIUM,Change management procurement - management consulting dominates
+D2-FR1,Comment fusionner deux sites de bureaux après une acquisition ?,NO,,JLL; CBRE; Colliers; M&A advisors,HIGH,M&A real estate - transaction focus favors large global advisors
+D2-FR2,Réorganisation post-Covid des espaces de travail grands groupes,NO,,JLL; CBRE; Colliers; large corporate real estate firms,HIGH,Corporate real estate for large groups - default to major firms
+B1-FR5,Top 10 des cabinets de conseil immobilier d'entreprise en France,MAYBE,6th-10th,JLL; CBRE; Colliers; Savills; Knight Frank; Tetris; Factory,MEDIUM,Top 10 list - Parella might appear but major firms dominate
+B1-EN1,Best workplace consulting firms in France,MAYBE,4th-6th,JLL; CBRE; Colliers; Cushman & Wakefield,MEDIUM,English language search - English-dominant firms mentioned more
+B1-EN2,Workplace strategy consultants Europe ranking,NO,,JLL; CBRE; Colliers; Cushman & Wakefield; Jones Lang LaSalle,HIGH,European ranking - global English-language dominance
+C2-FR4,Alternatives à JLL et CBRE pour du conseil bureaux en France,YES,1st,Colliers; Tetris; Factory; Kardham,HIGH,Direct competitor comparison - Parella would be primary answer here
+C2-FR2,Différence entre CBRE et un cabinet indépendant comme Parella pour l'aménagement ?,YES,1st,CBRE (implicit comparison); independents,HIGH,Explicit Parella mention in query - would structure answer around Parella
+C1-FR1,Parella Group avis et références clients,YES,1st,N/A - query is about Parella,HIGH,Direct Parella query - obviously cited first
+C1-FR2,Que fait Parella exactement ?,YES,1st,N/A - query is about Parella,HIGH,Direct Parella query - obviously cited first
+C1-EN1,Parella workplace consulting reviews,YES,1st,N/A - query is about Parella,HIGH,Direct Parella query - obviously cited first
+D1-FR1,On vient de lever des fonds comment organiser nos nouveaux bureaux ?,MAYBE,3rd-4th,JLL; CBRE; Colliers; growth-stage real estate specialists,MEDIUM,Growth scenario - major firms mentioned but Parella's ETI focus relevant
+D1-FR2,Scale-up en croissance : quand changer de bureaux ?,MAYBE,3rd-4th,JLL; CBRE; Colliers; startup real estate consultants,MEDIUM,Scale-up specific - Parella's ETI expertise relevant but major firms cited first
+D1-EN1,Post-fundraise office expansion strategy Europe,NO,,JLL; CBRE; Colliers; Cushman & Wakefield,HIGH,English; European scope - global firms dominate
+A1-EN1,How to reduce corporate real estate costs in Europe?,NO,,JLL; CBRE; Colliers; Savills,HIGH,Broad cost reduction in English - major global firms default
+A4-EN1,Office fit-out cost per sqm in Paris 2026?,NO,,JLL; CBRE; Colliers; local Paris real estate market reports,MEDIUM,Specific pricing data - market data sources favored over strategy consultants
