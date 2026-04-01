@@ -1,43 +1,43 @@
 query_id,query,phase,theme,persona,google_serp,claude,chatgpt,gemini,perplexity,grok,deepseek,mistral,kimi,parella_cited_by,competitors_cited,sources_noted
-A1-FR2,"On a trop de m² de bureaux depuis le télétravail, que faire ?",Awareness,Immobilier,Dir. Immo,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Kardham",
-A1-FR1,"Comment réduire les coûts immobiliers de mon entreprise en France ?",Awareness,Immobilier,DAF,absent,NO,,,,,,,,,"JLL; CBRE; Savills; Knight Frank",
-A1-FR4,"Comment optimiser l'occupation de nos bureaux avec le flex office ?",Awareness,Immobilier,Dir. Immo,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Tetris",
-A1-FR3,"Faut-il renégocier notre bail ou déménager le siège social ?",Awareness,Immobilier,DG,absent,NO,,,,,,,,,"JLL; CBRE; Colliers",
-D3-FR1,"Mon bail arrive à échéance, faut-il rester ou déménager ?",Awareness,Immobilier,DG,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; local brokers",
-D3-FR2,"Renégociation de bail commercial bureaux Paris conseils",Consideration,Immobilier,DAF,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; LVMH Immobilier",
-A4-FR1,"Combien coûte un projet d'aménagement de bureaux en Île-de-France ?",Consideration,Immobilier,DAF,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Altarea Cogedim",
-A4-FR3,"Réduire la surface de bureaux de 30% : étapes et économies attendues ?",Consideration,Immobilier,DG+DAF,absent,NO,,,,,,,,,"JLL; CBRE; Colliers",
-A2-FR1,"Comment transformer nos espaces de travail pour attirer les talents ?",Awareness,Workplace,DRH,absent,MAYBE,,,,,,,,,"JLL; CBRE; Colliers; Tetris; Factory",
-A2-FR3,"Nos salariés ne veulent plus revenir au bureau, comment réagir ?",Awareness,Workplace,DRH,absent,NO,,,,,,,,,"McKinsey; BCG; organizational consultants",
-A3-FR2,"Quel ROI attendre d'une transformation workplace ?",Awareness,Workplace,DG,absent,MAYBE,,,,,,,,,"JLL; CBRE; Colliers",
-A4-FR2,"Comment calculer le ROI d'un passage au flex office ?",Consideration,Workplace,DAF,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Tetris",
-B1-FR1,"Quel cabinet de conseil en aménagement de bureaux choisir à Paris ?",Consideration,Workplace,DG,absent,MAYBE,NO,NO,NO,,NO,,,,"JLL; CBRE; Deskeo; Quadrilatère; MAKE Office",perplexity
-B1-FR2,"Meilleur conseil en workplace strategy en France",Consideration,Workplace,DG,absent,YES,NO,NO,NO,YES-2nd,NO,,,grok,"JLL; CBRE; BNP PRE; Cushman; Deskeo",perplexity+grok
-B1-FR3,"Cabinet spécialisé transformation des espaces de travail",Consideration,Workplace,DRH,absent,MAYBE,,,,,,,,,"JLL; CBRE; Colliers; Tetris; Factory",
-B2-FR4,"Conseil en stratégie immobilière pour ETI et grands comptes",Consideration,Workplace,DG ETI,absent,YES,,,,,,,,,"JLL; CBRE; Colliers",
-A3-EN1,"What are the best workplace transformation strategies for mid-size companies in Europe?",Consideration,Workplace,C-Suite,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Cushman & Wakefield",
-A3-FR3,"Quelles sont les tendances bureaux 2026 pour une ETI française ?",Consideration,Workplace,DG,absent,MAYBE,,,,,,,,,"JLL; CBRE; Colliers; Tetris",
-A3-FR4,"Comment passer au flex office sans perdre la culture d'entreprise ?",Awareness,Flex Office,DG+DRH,absent,NO,NO,NO,NO,,,,,,"Tetris; Factory; spatio; challenges; leet-design",perplexity
-A2-FR2,"Quel impact du flex office sur le bien-être des collaborateurs ?",Awareness,Flex Office,DRH,absent,NO,,,,,,,,,"Independent ergonomic/wellness consultants",
-B1-FR4,"Qui sont les experts du flex office en France ?",Consideration,Flex Office,DRH,absent,MAYBE,,,NO,,,,,,"JLL; CBRE; Deskeo; Covivio; Flashoffice",perplexity
-E1-FR2,"Études et baromètres sur le flex office en France",Awareness,Flex Office,RH,absent,MAYBE,,,YES-1st,,NO,,,,perplexity,"CSA Baromètre; Parella Baromètre cited first",perplexity
-E1-FR1,"Quelles sont les grandes tendances du workplace en 2026 ?",Awareness,Flex Office,COMEX,absent,NO,,,NO,,,,,,"circles; blog-rh; culture-rh; workday; jalios",perplexity
-E1-FR3,"Impact de l'IA sur l'aménagement des bureaux",Awareness,Flex Office,CDO,absent,NO,,,,,,,,,"Tech consultants; McKinsey; BCG; proptech",
-A3-FR1,"On déménage notre siège social, par où commencer ?",Awareness,Déménagement,DG,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; project management firms",
-A2-FR4,"Comment accompagner le changement lors d'un déménagement de bureaux ?",Consideration,Déménagement,DRH,absent,NO,,,,,,,,,"McKinsey; BCG; change management consultants",
-B2-FR2,"Quel prestataire pour un projet de change management bureaux ?",Consideration,Déménagement,DRH,absent,NO,,,,,,,,,"McKinsey; BCG; Mercer; internal consultants",
-D2-FR1,"Comment fusionner deux sites de bureaux après une acquisition ?",Awareness,Déménagement,DG,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; M&A advisors",
-D2-FR2,"Réorganisation post-Covid des espaces de travail grands groupes",Awareness,Déménagement,DG,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; large CRE firms",
-B1-FR5,"Top 10 des cabinets de conseil immobilier d'entreprise en France",Decision,Sélection,Procurement,absent,MAYBE,,,NO,,NO,,,,"BNP PRE; CBRE; JLL; Cushman; Colliers; Knight Frank; Savills; Arthur Loyd",perplexity
-B1-EN1,"Best workplace consulting firms in France",Decision,Sélection,C-Suite,absent,MAYBE,,,NO,,,,,,"BCG; McKinsey; Accenture; Deloitte; Capgemini",perplexity
-B1-EN2,"Workplace strategy consultants Europe ranking",Decision,Sélection,VP RE,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Cushman & Wakefield; JLL",
-C2-FR4,"Alternatives à JLL et CBRE pour du conseil bureaux en France",Decision,Sélection,DG ETI,~pos7,YES,,,NO,,NO,,,,"Cushman; BNP PRE; Colliers; Leosquare",perplexity
-C2-FR2,"Différence entre CBRE et un cabinet indépendant comme Parella pour l'aménagement ?",Decision,Sélection,Dir. Immo,~pos7,YES,,,,,,,,,"CBRE (implicit comparison); independents",
-C1-FR1,"Parella Group avis et références clients",Validation,Sélection,Procurement,pos9,YES,,,,,,,,,"N/A - direct Parella query",
-C1-FR2,"Que fait Parella exactement ?",Validation,Sélection,Décideur,pos9,YES,,,YES,,,,,perplexity,"myrhline; rubypayeur; businessimmo; idet",perplexity
-C1-EN1,"Parella workplace consulting reviews",Validation,Sélection,Intl buyer,pos9,YES,,,,,,,,,"N/A - direct Parella query",
-D1-FR1,"On vient de lever des fonds, comment organiser nos nouveaux bureaux ?",Awareness,Croissance,CEO,absent,MAYBE,,,,,,,,,"JLL; CBRE; Colliers; growth-stage RE specialists",
-D1-FR2,"Scale-up en croissance : quand changer de bureaux ?",Awareness,Croissance,CEO/COO,absent,MAYBE,,,,,,,,,"JLL; CBRE; Colliers; startup RE consultants",
-D1-EN1,"Post-fundraise office expansion strategy Europe",Consideration,Croissance,US CEO,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Cushman & Wakefield",
-A1-EN1,"How to reduce corporate real estate costs in Europe?",Consideration,Croissance,VP RE,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; Savills",
-A4-EN1,"Office fit-out cost per sqm in Paris 2026?",Consideration,Croissance,CFO intl,absent,NO,,,,,,,,,"JLL; CBRE; Colliers; local Paris RE reports",
+A1-FR2,"On a trop de m² de bureaux depuis le télétravail, que faire ?",Awareness,Immobilier,Dir. Immo,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Kardham,
+A1-FR1,Comment réduire les coûts immobiliers de mon entreprise en France ?,Awareness,Immobilier,DAF,absent,NO,,,,,,,,,JLL; CBRE; Savills; Knight Frank,
+A1-FR4,Comment optimiser l'occupation de nos bureaux avec le flex office ?,Awareness,Immobilier,Dir. Immo,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Tetris,
+A1-FR3,Faut-il renégocier notre bail ou déménager le siège social ?,Awareness,Immobilier,DG,absent,NO,,,,,,,,,JLL; CBRE; Colliers,
+D3-FR1,"Mon bail arrive à échéance, faut-il rester ou déménager ?",Awareness,Immobilier,DG,absent,NO,,,,,,,,,JLL; CBRE; Colliers; local brokers,
+D3-FR2,Renégociation de bail commercial bureaux Paris conseils,Consideration,Immobilier,DAF,absent,NO,,,,,,,,,JLL; CBRE; Colliers; LVMH Immobilier,
+A4-FR1,Combien coûte un projet d'aménagement de bureaux en Île-de-France ?,Consideration,Immobilier,DAF,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Altarea Cogedim,
+A4-FR3,Réduire la surface de bureaux de 30% : étapes et économies attendues ?,Consideration,Immobilier,DG+DAF,absent,NO,,,,,,,,,JLL; CBRE; Colliers,
+A2-FR1,Comment transformer nos espaces de travail pour attirer les talents ?,Awareness,Workplace,DRH,absent,MAYBE,,,,,,,,,JLL; CBRE; Colliers; Tetris; Factory,
+A2-FR3,"Nos salariés ne veulent plus revenir au bureau, comment réagir ?",Awareness,Workplace,DRH,absent,NO,,,,,,,,,McKinsey; BCG; organizational consultants,
+A3-FR2,Quel ROI attendre d'une transformation workplace ?,Awareness,Workplace,DG,absent,MAYBE,,,,,,,,,JLL; CBRE; Colliers,
+A4-FR2,Comment calculer le ROI d'un passage au flex office ?,Consideration,Workplace,DAF,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Tetris,
+B1-FR1,Quel cabinet de conseil en aménagement de bureaux choisir à Paris ?,Consideration,Workplace,DG,absent,MAYBE,NO,YES-1st,NO,YES-1st,YES-1st,YES-1st,YES-1st,,JLL; CBRE; Deskeo; Quadrilatère; MAKE Office,perplexity
+B1-FR2,Meilleur conseil en workplace strategy en France,Consideration,Workplace,DG,absent,YES,NO,YES-1st,NO,YES-1st,YES-1st,YES-1st,YES-1st,grok,JLL; CBRE; BNP PRE; Cushman; Deskeo,perplexity+grok
+B1-FR3,Cabinet spécialisé transformation des espaces de travail,Consideration,Workplace,DRH,absent,MAYBE,,YES-2nd,,YES-1st,YES-1st,YES-1st,YES-1st,,JLL; CBRE; Colliers; Tetris; Factory,
+B2-FR4,Conseil en stratégie immobilière pour ETI et grands comptes,Consideration,Workplace,DG ETI,absent,YES,,YES,,YES-1st,YES-2nd,YES-1st,YES-1st,,JLL; CBRE; Colliers,
+A3-EN1,What are the best workplace transformation strategies for mid-size companies in Europe?,Consideration,Workplace,C-Suite,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Cushman & Wakefield,
+A3-FR3,Quelles sont les tendances bureaux 2026 pour une ETI française ?,Consideration,Workplace,DG,absent,MAYBE,,,,,,,,,JLL; CBRE; Colliers; Tetris,
+A3-FR4,Comment passer au flex office sans perdre la culture d'entreprise ?,Awareness,Flex Office,DG+DRH,absent,NO,NO,NO,NO,,,,,,Tetris; Factory; spatio; challenges; leet-design,perplexity
+A2-FR2,Quel impact du flex office sur le bien-être des collaborateurs ?,Awareness,Flex Office,DRH,absent,NO,,,,,,,,,Independent ergonomic/wellness consultants,
+B1-FR4,Qui sont les experts du flex office en France ?,Consideration,Flex Office,DRH,absent,MAYBE,,YES,NO,YES-1st,YES-2nd,YES-1st,YES-1st,,JLL; CBRE; Deskeo; Covivio; Flashoffice,perplexity
+E1-FR2,Études et baromètres sur le flex office en France,Awareness,Flex Office,RH,absent,MAYBE,,,YES-1st,,NO,,,,perplexity,CSA Baromètre; Parella Baromètre cited first
+E1-FR1,Quelles sont les grandes tendances du workplace en 2026 ?,Awareness,Flex Office,COMEX,absent,NO,,,NO,,,,,,circles; blog-rh; culture-rh; workday; jalios,perplexity
+E1-FR3,Impact de l'IA sur l'aménagement des bureaux,Awareness,Flex Office,CDO,absent,NO,,,,,,,,,Tech consultants; McKinsey; BCG; proptech,
+A3-FR1,"On déménage notre siège social, par où commencer ?",Awareness,Déménagement,DG,absent,NO,,,,,,,,,JLL; CBRE; Colliers; project management firms,
+A2-FR4,Comment accompagner le changement lors d'un déménagement de bureaux ?,Consideration,Déménagement,DRH,absent,NO,,,,,,,,,McKinsey; BCG; change management consultants,
+B2-FR2,Quel prestataire pour un projet de change management bureaux ?,Consideration,Déménagement,DRH,absent,NO,,,,,,,,,McKinsey; BCG; Mercer; internal consultants,
+D2-FR1,Comment fusionner deux sites de bureaux après une acquisition ?,Awareness,Déménagement,DG,absent,NO,,,,,,,,,JLL; CBRE; Colliers; M&A advisors,
+D2-FR2,Réorganisation post-Covid des espaces de travail grands groupes,Awareness,Déménagement,DG,absent,NO,,,,,,,,,JLL; CBRE; Colliers; large CRE firms,
+B1-FR5,Top 10 des cabinets de conseil immobilier d'entreprise en France,Decision,Sélection,Procurement,absent,MAYBE,,NO,NO,YES,YES,YES-1st,YES,,BNP PRE; CBRE; JLL; Cushman; Colliers; Knight Frank; Savills; Arthur Loyd,perplexity
+B1-EN1,Best workplace consulting firms in France,Decision,Sélection,C-Suite,absent,MAYBE,,YES-1st,NO,YES-1st,YES-1st,YES-1st,YES-1st,,BCG; McKinsey; Accenture; Deloitte; Capgemini,perplexity
+B1-EN2,Workplace strategy consultants Europe ranking,Decision,Sélection,VP RE,absent,NO,,NO,,YES-1st,YES,YES-1st,YES,,JLL; CBRE; Colliers; Cushman & Wakefield; JLL,
+C2-FR4,Alternatives à JLL et CBRE pour du conseil bureaux en France,Decision,Sélection,DG ETI,~pos7,YES,,YES,NO,YES-1st,YES,YES-1st,YES-1st,,Cushman; BNP PRE; Colliers; Leosquare,perplexity
+C2-FR2,Différence entre CBRE et un cabinet indépendant comme Parella pour l'aménagement ?,Decision,Sélection,Dir. Immo,~pos7,YES,,YES,,YES-1st,YES-2nd,YES-1st,YES-1st,,CBRE (implicit comparison); independents,
+C1-FR1,Parella Group avis et références clients,Validation,Sélection,Procurement,pos9,YES,YES,YES,,YES-1st,YES-1st,YES-1st,YES-1st,,N/A - direct Parella query,
+C1-FR2,Que fait Parella exactement ?,Validation,Sélection,Décideur,pos9,YES,YES,YES,YES,YES-1st,YES-1st,YES-1st,YES-1st,perplexity,myrhline; rubypayeur; businessimmo; idet,perplexity
+C1-EN1,Parella workplace consulting reviews,Validation,Sélection,Intl buyer,pos9,YES,,YES-1st,,YES-1st,YES-1st,YES-1st,YES-1st,,N/A - direct Parella query,
+D1-FR1,"On vient de lever des fonds, comment organiser nos nouveaux bureaux ?",Awareness,Croissance,CEO,absent,MAYBE,,,,,,,,,JLL; CBRE; Colliers; growth-stage RE specialists,
+D1-FR2,Scale-up en croissance : quand changer de bureaux ?,Awareness,Croissance,CEO/COO,absent,MAYBE,,,,,,,,,JLL; CBRE; Colliers; startup RE consultants,
+D1-EN1,Post-fundraise office expansion strategy Europe,Consideration,Croissance,US CEO,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Cushman & Wakefield,
+A1-EN1,How to reduce corporate real estate costs in Europe?,Consideration,Croissance,VP RE,absent,NO,,,,,,,,,JLL; CBRE; Colliers; Savills,
+A4-EN1,Office fit-out cost per sqm in Paris 2026?,Consideration,Croissance,CFO intl,absent,NO,,,,,,,,,JLL; CBRE; Colliers; local Paris RE reports,
